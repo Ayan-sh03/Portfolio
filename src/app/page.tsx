@@ -5,6 +5,12 @@ import About from "./Components/About";
 import Projects from "./Components/Projects";
 import EmailSection from "./Components/EmailSection";
 import Footer from "./Components/Footer";
+import { Metadata } from "next";
+
+export const metadata  :Metadata = {
+  title:"Portfolio",
+  description:"Made by Ayan Sheikh"
+}
 
 export default function Home() {
   return (
