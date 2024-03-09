@@ -1,48 +1,61 @@
-"use client"
-import React, { FormEvent } from "react";
+"use client";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import GithubIcon from "../../../public/github-icon.svg";
 import LinkedInIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
 
+interface formValues {
+  email: string;
+  subject: string;
+  message: string;
+}
+
 const EmailSection = () => {
-  const [emailSubmitted, setEmailSubmitted] = React.useState(false)
+  const [emailSubmitted, setEmailSubmitted] = React.useState(false);
+  const [form, setForm] = useState<formValues>();
 
-  const handleSubmit = async (e:FormEvent)=>{
-    e.preventDefault()
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
-    const data = {
-      email :e.target.email.value,
-      subject : e.target.subject.value,
-      message : e.target.message.value
-    }
+    const data = form;
 
     const JSONdata = JSON.stringify(data);
     const endpoint = "/api/send";
 
     const options = {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body :JSONdata
+      body: JSONdata,
+    };
+
+    const res = await fetch(endpoint, options);
+
+    const resData = await res.json();
+    if (resData.status === 200) {
+      console.log("Message sent successfully");
+      setEmailSubmitted(true);
     }
+  };
 
-     const res =  await fetch(endpoint, options);
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value } as formValues);
+  };
+  const handleChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value } as formValues);
+  };
 
-     const resData = await res.json()
-     if(resData.status === 200){
-      console.log("Message sent successfully")
-      setEmailSubmitted(true)
-     }
-   
-
-
-  }
 
 
   return (
-    <section id="contact"  className="grid md:grid-cols-2 my-12 md:my-12 py-12 gap-4 ">
+    <section
+      id="contact"
+      className="grid md:grid-cols-2 my-12 md:my-12 py-12 gap-4 "
+    >
       <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-900 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-1/2"></div>
 
       <div>
@@ -68,13 +81,14 @@ const EmailSection = () => {
           <label
             htmlFor="email"
             className="text-white block mb-2  text-sm font-medium "
-            >
+          >
             Email
           </label>
           <input
             type="email"
-            
             name="email"
+            value={form?.email}
+            onChange={handleChangeInput}
             id="email"
             required
             placeholder="johndoe@example.com"
@@ -91,6 +105,8 @@ const EmailSection = () => {
           <input
             type="text"
             name="subject"
+            value={form?.subject}
+            onChange={handleChangeInput}
             id="subject"
             required
             placeholder="Just Say Hi!"
@@ -107,17 +123,22 @@ const EmailSection = () => {
           <textarea
             name="message"
             id="message"
+            value={form?.message}
+            onChange={handleChangeTextArea}
             className="bg-[#18191E] my-3 border border-[#3333FF] placeholder-[#9CA1A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
             placeholder="Leave Your Message Here"
           />
 
-          <button type="submit" className="bg-purple-500 hover:bg-purple-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Send Message</button>
+          <button
+            type="submit"
+            className="bg-purple-500 hover:bg-purple-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          >
+            Send Message
+          </button>
         </div>
-        {
-          emailSubmitted && (
-            <p className="text-gree text-sm mt-2">Email Send Successfuly </p>
-          ) 
-        }
+        {emailSubmitted && (
+          <p className="text-gree text-sm mt-2">Email Send Successfuly </p>
+        )}
       </form>
     </section>
   );
