@@ -36,13 +36,7 @@ const HeroSection = () => {
               repeat={Infinity}
             />
           </h1>
-          <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
-            Welcome! I&apos;m a passionate software developer driven by a constant
-            hunger for learning and innovation. With a knack for crafting
-            elegant solutions, I thrive on tackling challenges head-on and
-            exceeding expectations with every project. Let&apos;s collaborate and
-            create something extraordinary together.
-          </p>
+
           <div>
             <Link
               href="/#contact"
@@ -51,7 +45,7 @@ const HeroSection = () => {
               Hire Me
             </Link>
             <Link
-              href="/"
+              href={"/Ayan_Sheikh_Resume .pdf"}
               className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
             >
               <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">

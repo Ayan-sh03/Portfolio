@@ -64,10 +64,11 @@ const About = () => {
           <div className="mt-4 md:mt-0 text-left flex flex-col h-full ">
             <h2 className="text-4xl font-bold text-white mb-4 ">About Me</h2>
             <p className="text-base lg:text-lg  ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Est rerum
-              labore soluta dolorum, quod enim? Assumenda sequi eaque illo
-              veritatis quibusdam sit, numquam enim aliquid, velit atque ea
-              temporibus omnis obcaecati asperiores, totam ex!
+            I&apos;m a passionate software developer driven by a constant
+            hunger for learning and innovation. With a knack for crafting
+            elegant solutions, I thrive on tackling challenges head-on and
+            exceeding expectations with every project. Let&apos;s collaborate and
+            create something extraordinary together.
             </p>
             <div className="flex flex-row mt-8">
                 <TabButton

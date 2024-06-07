@@ -8,7 +8,7 @@ const projectsData = [
     title: "Trivia Genious",
     description: "AI Generated Quiz Web app ",
     imageUrl: "/projects/trivia.png",
-    gitUrl: "https://github.com/ayansh-03",
+    gitUrl: "https://github.com/Ayan-sh03/Trivia-genious-backend",
     prevUrl:"https://triviagenius.netlify.app/"
 
   },
@@ -17,7 +17,7 @@ const projectsData = [
     title: "IntelliPrep",
     description: "Exam Preparations Web app ",
     imageUrl: "/projects/intelliprep.png",
-    gitUrl: "https://github.com/ayansh-03",
+    gitUrl: "https://github.com/Ayan-sh03/IntelliPrep",
     prevUrl:"https://intelliprep.netlify.app/"
 
 
@@ -27,8 +27,18 @@ const projectsData = [
     title: "BotaniKnow",
     description: "Plant Identification Progressive Web app ",
     imageUrl: "/projects/botani.png",
-    gitUrl: "https://github.com/ayansh-03",
-    prevUrl:"https://github.com/ayansh-03"
+    gitUrl: "https://github.com/Manas8803/Botani-Know",
+    prevUrl:"https://github.com/Manas8803/Botani-Know"
+
+
+  },
+  {
+    id: 4,
+    title: "Anoq",
+    description: "No BS Feedback form creator ",
+    imageUrl: "/projects/anoq.png",
+    gitUrl: "https://github.com/Ayan-sh03/anoq",
+    prevUrl:"https://anoq.vercell.app"
 
 
   },
