@@ -38,7 +38,7 @@ const projectsData = [
     description: "No BS Feedback form creator ",
     imageUrl: "/projects/anoq.png",
     gitUrl: "https://github.com/Ayan-sh03/anoq",
-    prevUrl:"https://anoq.vercell.app"
+    prevUrl:"https://anoq.vercel.app"
 
 
   },
