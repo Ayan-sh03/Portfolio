@@ -1,16 +1,31 @@
-"use client"
+"use client";
 import { useRef } from "react";
 import ProjectCard from "./ProjectCard";
-import {Variants, motion , useInView} from 'framer-motion';
+import { Variants, motion, useInView } from "framer-motion";
 const projectsData = [
+  {
+    id: 4,
+    title: "Anoq",
+    description: "No BS Feedback form creator ",
+    imageUrl: "/projects/anoq.png",
+    gitUrl: "https://github.com/Ayan-sh03/anoq",
+    prevUrl: "https://anoq.vercel.app",
+  },
+  {
+    id: 5,
+    title: "Zapspell",
+    description: "Learning Spelling made easier ",
+    imageUrl: "/projects/zapspell.png",
+    gitUrl: "https://github.com/Ayan-sh03/zapspell",
+    prevUrl: "https://zapspell.ayansh.xyz",
+  },
   {
     id: 1,
     title: "Trivia Genious",
     description: "AI Generated Quiz Web app ",
     imageUrl: "/projects/trivia.png",
     gitUrl: "https://github.com/Ayan-sh03/Trivia-genious-backend",
-    prevUrl:"https://triviagenius.netlify.app/"
-
+    prevUrl: "https://triviagenius.netlify.app/",
   },
   {
     id: 2,
@@ -18,9 +33,7 @@ const projectsData = [
     description: "Exam Preparations Web app ",
     imageUrl: "/projects/intelliprep.png",
     gitUrl: "https://github.com/Ayan-sh03/IntelliPrep",
-    prevUrl:"https://intelliprep.netlify.app/"
-
-
+    prevUrl: "https://intelliprep.netlify.app/",
   },
   {
     id: 3,
@@ -28,29 +41,16 @@ const projectsData = [
     description: "Plant Identification Progressive Web app ",
     imageUrl: "/projects/botani.png",
     gitUrl: "https://github.com/Manas8803/Botani-Know",
-    prevUrl:"https://github.com/Manas8803/Botani-Know"
-
-
-  },
-  {
-    id: 4,
-    title: "Anoq",
-    description: "No BS Feedback form creator ",
-    imageUrl: "/projects/anoq.png",
-    gitUrl: "https://github.com/Ayan-sh03/anoq",
-    prevUrl:"https://anoq.vercell.app"
-
-
+    prevUrl: "https://github.com/Manas8803/Botani-Know",
   },
 ];
-const cardVariants : Variants   = {
-  initial :{y:50 , opacity :0 },
-  animate : {y:0 , opacity:1}
+const cardVariants: Variants = {
+  initial: { y: 50, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
 };
 const Projects = () => {
-
   const ref = useRef(null);
-  const isInView = useInView(ref , {once : true})
+  const isInView = useInView(ref, { once: true });
   return (
     <section ref={ref} id="projects">
       <h2>My Projects</h2>
