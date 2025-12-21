@@ -1,4 +1,3 @@
-
 import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar";
 import About from "./Components/About";
@@ -7,21 +6,21 @@ import EmailSection from "./Components/EmailSection";
 import Footer from "./Components/Footer";
 import { Metadata } from "next";
 
-export const metadata  :Metadata = {
-  title:"Portfolio",
-  description:"Made by Ayan Sheikh"
-}
+export const metadata: Metadata = {
+  title: "Ayan Sheikh | Portfolio",
+  description: "Software Developer Portfolio",
+};
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen container mx-auto flex-col bg-[#121212] px-12 py-4 ">
+    <main className="min-h-screen">
       <Navbar />
-      <div className="container mt-24 mx-auto   py-5">
+      <div className="mt-16">
         <Hero />
-        <About/>
-        <Projects/>
-        <EmailSection/>
-        <Footer/>
+        <About />
+        <Projects />
+        <EmailSection />
+        <Footer />
       </div>
     </main>
   );

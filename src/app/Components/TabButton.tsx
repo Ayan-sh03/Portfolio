@@ -1,13 +1,24 @@
 import React from "react";
 
-const TabButton = ({ active, selectTab, children } : { active: boolean, selectTab: () => void, children: React.ReactNode }) => {
+const TabButton = ({
+  active,
+  selectTab,
+  children,
+}: {
+  active: boolean;
+  selectTab: () => void;
+  children: React.ReactNode;
+}) => {
   const buttonClasses = active
-    ? "text-white border-b border-purple-500 "
-    : "text-[#ADB7BE]  ";
+    ? "text-mono-bg bg-accent border-accent"
+    : "text-mono-text-alt bg-transparent border-mono-text hover:bg-mono-bg-alt hover:text-mono-text";
 
   return (
-    <button className={buttonClasses} onClick={selectTab}>
-      <p className={`mr-3 font-semibold hover:text-white ${buttonClasses}`}>{children}</p>
+    <button
+      className={`px-3 py-1 mr-2 border-2 uppercase text-sm tracking-wide transition-colors ${buttonClasses}`}
+      onClick={selectTab}
+    >
+      {children}
     </button>
   );
 };

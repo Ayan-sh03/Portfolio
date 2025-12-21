@@ -5,6 +5,7 @@ import React from "react";
 import NavLink from "./NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
+
 const navLinks = [
   {
     title: "About",
@@ -24,43 +25,40 @@ const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 bg-[#121212] bg-opacity-95">
-      <div className="flex flex-wrap items-center justify-between mx-auto px-4 py-2 ">
+    <nav className="fixed top-0 left-0 right-0 z-10 bg-mono-bg border-b-2 border-mono-text">
+      <div className="flex items-center justify-between py-2 px-2ch">
         <Link
           href={"/"}
-          className=" text-2xl md:text-5xl text-white font-semiboldb"
+          className="text-mono-text font-bold text-lg tracking-wider hover:text-accent hover:bg-transparent no-underline"
         >
-        
+          [AYAN]
         </Link>
+        
         <div className="mobile-menu block md:hidden">
           {!navbarOpen ? (
             <button
               onClick={() => setNavbarOpen(true)}
-              className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+              className="flex items-center px-2 py-1 border-2 border-mono-text text-mono-text hover:bg-accent hover:text-mono-bg hover:border-accent"
             >
               <Bars3Icon className="h-5 w-5" />
             </button>
           ) : (
             <button
               onClick={() => setNavbarOpen(false)}
-              className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+              className="flex items-center px-2 py-1 border-2 border-mono-text text-mono-text hover:bg-accent hover:text-mono-bg hover:border-accent"
             >
               <XMarkIcon className="h-5 w-5" />
             </button>
           )}
         </div>
 
-        <div className="menu hidden  md:block md:w-auto" id="navbar">
-          <ul className="flex p-4 md:p-0 md:space-x-8 flex-row md:flex-row ">
-            <li>
-              <NavLink href={"#about"} title={"About"} />
-            </li>
-            <li>
-              <NavLink href={"#projects"} title={"Projects"} />
-            </li>
-            <li>
-              <NavLink href={"#contact"} title={"Contact"} />
-            </li>
+        <div className="menu hidden md:block" id="navbar">
+          <ul className="flex gap-4">
+            {navLinks.map((link, index) => (
+              <li key={index} className="list-none">
+                <NavLink href={link.path} title={link.title} />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
