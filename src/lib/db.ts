@@ -168,8 +168,15 @@ export async function getAllTags(): Promise<string[]> {
   return rows.map(row => row.tag);
 }
 
+// Helper function to convert array to PostgreSQL array literal
+function toPostgresArray(arr: string[] | undefined): string {
+  if (!arr || arr.length === 0) return '{}';
+  return `{${arr.map(item => `"${item.replace(/"/g, '\\"')}"`).join(',')}}`;
+}
+
 // Create a new blog post
 export async function createPost(post: CreateBlogPost): Promise<BlogPost> {
+  const tagsArray = toPostgresArray(post.tags);
   const { rows } = await sql`
     INSERT INTO blog_posts (slug, title, excerpt, content, cover_image, tags, published, reading_time)
     VALUES (
@@ -178,7 +185,7 @@ export async function createPost(post: CreateBlogPost): Promise<BlogPost> {
       ${post.excerpt},
       ${post.content},
       ${post.cover_image || null},
-      ${post.tags || []},
+      ${tagsArray}::text[],
       ${post.published ?? false},
       ${post.reading_time || 1}
     )
@@ -192,13 +199,14 @@ export async function updatePost(slug: string, post: Partial<CreateBlogPost>): P
   const existingPost = await getPostBySlug(slug);
   if (!existingPost) return null;
 
+  const tagsArray = post.tags ? toPostgresArray(post.tags) : null;
   const { rows } = await sql`
     UPDATE blog_posts SET
       title = COALESCE(${post.title ?? null}, title),
       excerpt = COALESCE(${post.excerpt ?? null}, excerpt),
       content = COALESCE(${post.content ?? null}, content),
       cover_image = COALESCE(${post.cover_image ?? null}, cover_image),
-      tags = COALESCE(${post.tags ?? null}, tags),
+      tags = COALESCE(${tagsArray}::text[], tags),
       published = COALESCE(${post.published ?? null}, published),
       reading_time = COALESCE(${post.reading_time ?? null}, reading_time),
       updated_at = NOW()
