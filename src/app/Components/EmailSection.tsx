@@ -9,33 +9,52 @@ interface formValues {
 }
 
 const EmailSection = () => {
-  const [emailSubmitted, setEmailSubmitted] = React.useState(false);
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<formValues>({
     email: "",
     subject: "",
     message: "",
   });
 
+  // Web3Forms - Free contact form API (250 submissions/month free)
+  // Get your access key at: https://web3forms.com (no signup required, just enter email)
+  const WEB3FORMS_ACCESS_KEY = "ed32e88b-ac23-498e-a77d-3e45af574808"; // Replace with your key
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-    const data = form;
-    const JSONdata = JSON.stringify(data);
-    const endpoint = "/api/send";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: "Portfolio Contact Form",
+          subject: `Portfolio: ${form.subject}`,
+          email: form.email,
+          message: form.message,
+        }),
+      });
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSONdata,
-    };
+      const result = await res.json();
 
-    const res = await fetch(endpoint, options);
-    const resData = await res.json();
-
-    if (resData.status === 200) {
-      setEmailSubmitted(true);
+      if (result.success) {
+        setEmailSubmitted(true);
+        setForm({ email: "", subject: "", message: "" });
+      } else {
+        setError(result.message || "Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -118,9 +137,21 @@ const EmailSection = () => {
 │                                 │
 └─────────────────────────────────┘`}
               </pre>
+              <button
+                onClick={() => setEmailSubmitted(false)}
+                className="mt-4 px-4 py-2 border-2 border-mono-text text-mono-text-alt hover:bg-mono-text hover:text-mono-bg text-sm"
+              >
+                [Send Another Message]
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="border-2 border-accent-alt p-3 text-accent-alt text-sm">
+                  <span className="text-accent-alt">ERROR:</span> {error}
+                </div>
+              )}
+
               <div>
                 <label htmlFor="email">Email</label>
                 <input
@@ -132,6 +163,7 @@ const EmailSection = () => {
                   required
                   placeholder="your@email.com"
                   className="w-full"
+                  disabled={isLoading}
                 />
               </div>
 
@@ -146,6 +178,7 @@ const EmailSection = () => {
                   required
                   placeholder="Hello!"
                   className="w-full"
+                  disabled={isLoading}
                 />
               </div>
 
@@ -159,14 +192,17 @@ const EmailSection = () => {
                   placeholder="Your message here..."
                   rows={5}
                   className="w-full"
+                  required
+                  disabled={isLoading}
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full border-2 border-accent text-accent hover:bg-accent hover:text-mono-bg"
+                disabled={isLoading}
+                className="w-full border-2 border-accent text-accent hover:bg-accent hover:text-mono-bg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                [Send Message]
+                {isLoading ? "[Sending...]" : "[Send Message]"}
               </button>
             </form>
           )}

@@ -22,6 +22,8 @@ const TAB_DATA = [
 │   ├── JavaScript / TypeScript           │
 │   ├── Golang                            │
 │   ├── C++                               │
+│   ├── Java                              │
+│   ├── Rust                              │
 │   └── Python                            │
 │                                         │
 │ Frontend:                               │
@@ -37,7 +39,7 @@ const TAB_DATA = [
 │ Databases:                              │
 │   ├── PostgreSQL                        │
 │   ├── MongoDB                           │
-│   └── Prisma ORM                        │
+│   ├── MySQL                             │
 └─────────────────────────────────────────┘`}
         </pre>
       </motion.div>
@@ -59,7 +61,7 @@ const TAB_DATA = [
 │                                         │
 │ B.Tech Information Technology           │
 │ ─────────────────────────────           │
-│ Duration: 2020 - 2024                   │
+│ Duration: 2021 - 2025                   │
 │                                         │
 │ Highlights:                             │
 │   • Web Development                     │
@@ -149,7 +151,7 @@ const About = () => {
                 <tbody>
                   <tr>
                     <td className="text-mono-text-alt py-1 border-0 w-1/2">Experience:</td>
-                    <td className="text-accent py-1 border-0">3+ Years</td>
+                    <td className="text-accent py-1 border-0">3+ Years in Development</td>
                   </tr>
                   <tr>
                     <td className="text-mono-text-alt py-1 border-0">Projects:</td>

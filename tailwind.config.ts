@@ -7,6 +7,7 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       fontFamily: {
@@ -24,24 +25,49 @@ module.exports = {
       borderWidth: {
         'mono': '2px',
       },
+      animation: {
+        'theme-pulse': 'themePulse 0.5s ease-out',
+        'sun-spin': 'sunSpin 0.5s ease-out',
+        'moon-rise': 'moonRise 0.5s ease-out',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+      },
+      keyframes: {
+        themePulse: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        sunSpin: {
+          '0%': { transform: 'rotate(-90deg) scale(0)' },
+          '100%': { transform: 'rotate(0deg) scale(1)' },
+        },
+        moonRise: {
+          '0%': { transform: 'rotate(90deg) scale(0)' },
+          '100%': { transform: 'rotate(0deg) scale(1)' },
+        },
+        glow: {
+          '0%': { boxShadow: '0 0 5px var(--accent-color), 0 0 10px var(--accent-color)' },
+          '100%': { boxShadow: '0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color)' },
+        },
+      },
     },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      // Monospace theme colors
+      // Monospace theme colors - using CSS variables for dynamic theming
       mono: {
-        bg: '#0a0a0a',
-        'bg-alt': '#111',
-        text: '#fff',
-        'text-alt': '#888',
-        border: '#fff',
+        bg: 'var(--background-color)',
+        'bg-alt': 'var(--background-color-alt)',
+        text: 'var(--text-color)',
+        'text-alt': 'var(--text-color-alt)',
+        border: 'var(--text-color)',
       },
       accent: {
-        DEFAULT: '#00ff88',
-        alt: '#ff6b6b',
-        cyan: '#00d4ff',
-        yellow: '#ffcc00',
-        purple: '#9966ff',
+        DEFAULT: 'var(--accent-color)',
+        alt: 'var(--accent-color-alt)',
+        cyan: 'var(--accent-cyan)',
+        yellow: 'var(--accent-yellow)',
+        purple: 'var(--accent-purple)',
       },
       // Keep some standard colors for flexibility
       white: '#ffffff',

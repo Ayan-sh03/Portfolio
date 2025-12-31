@@ -4,31 +4,71 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* ═══════════════════════════════════════════════════════════════════════════
+   DARK THEME (Default) - Cyberpunk Terminal Vibes
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
   --font-family: "JetBrains Mono", monospace;
   --line-height: 1.5rem;
   --border-thickness: 2px;
-  --text-color: #fff;
-  --text-color-alt: #888;
-  --background-color: #0a0a0a;
-  --background-color-alt: #111;
+  
+  /* Core Colors - Dark Mode */
+  --text-color: #e8e8e8;
+  --text-color-alt: #6b7280;
+  --background-color: #0a0a0f;
+  --background-color-alt: #12121a;
+  
+  /* Accent Colors - Neon Cyberpunk */
   --accent-color: #00ff88;
   --accent-color-alt: #ff6b6b;
-
+  --accent-cyan: #00d4ff;
+  --accent-yellow: #ffd700;
+  --accent-purple: #bf5af2;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+  --gradient-accent: linear-gradient(135deg, #ff6b6b 0%, #bf5af2 100%);
+  --gradient-bg: radial-gradient(ellipse at top, #12121a 0%, #0a0a0f 100%);
+  
+  /* Glow Effects */
+  --glow-primary: 0 0 20px rgba(0, 255, 136, 0.3);
+  --glow-accent: 0 0 20px rgba(255, 107, 107, 0.3);
+  
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
+  
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --text-color: #000;
-    --text-color-alt: #666;
-    --background-color: #fff;
-    --background-color-alt: #eee;
-    --accent-color: #007755;
-    --accent-color-alt: #cc4444;
-  }
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT THEME - Clean Paper & Ink Aesthetic
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* Core Colors - Light Mode */
+  --text-color: #1a1a2e;
+  --text-color-alt: #64748b;
+  --background-color: #faf9f7;
+  --background-color-alt: #f0efeb;
+  
+  /* Accent Colors - Refined & Bold */
+  --accent-color: #059669;
+  --accent-color-alt: #dc2626;
+  --accent-cyan: #0891b2;
+  --accent-yellow: #ca8a04;
+  --accent-purple: #7c3aed;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+  --gradient-accent: linear-gradient(135deg, #dc2626 0%, #7c3aed 100%);
+  --gradient-bg: linear-gradient(180deg, #ffffff 0%, #faf9f7 100%);
+  
+  /* Subtle Shadows instead of Glow */
+  --glow-primary: 0 4px 20px rgba(5, 150, 105, 0.15);
+  --glow-accent: 0 4px 20px rgba(220, 38, 38, 0.15);
+  
+  color-scheme: light;
 }
 
 * {
@@ -51,6 +91,7 @@ html {
   font-style: normal;
   font-variant-numeric: tabular-nums lining-nums;
   font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -63,6 +104,39 @@ body {
   overflow-x: hidden;
   background: var(--background-color);
   color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Subtle background pattern for light mode */
+[data-theme="light"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, rgba(26, 26, 46, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(26, 26, 46, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Subtle grid pattern for dark mode */
+[data-theme="dark"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 @media screen and (max-width: 480px) {
@@ -74,12 +148,15 @@ body {
   }
 }
 
-/* Typography */
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════════════════ */
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-weight-bold);
   margin: calc(var(--line-height) * 2) 0 var(--line-height);
   line-height: var(--line-height);
   color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 h1 {
@@ -95,6 +172,7 @@ h2 {
   letter-spacing: 0.05em;
   border-bottom: var(--border-thickness) solid var(--text-color);
   padding-bottom: calc(var(--line-height) / 2);
+  transition: border-color 0.3s ease;
 }
 
 h3 {
@@ -121,18 +199,22 @@ hr:after {
   width: 100%;
   border-top: calc(var(--border-thickness) * 3) double var(--text-color);
   height: 0;
+  transition: border-color 0.3s ease;
 }
 
-/* Links */
+/* ═══════════════════════════════════════════════════════════════════════════
+   LINKS
+   ═══════════════════════════════════════════════════════════════════════════ */
 a {
   text-decoration-thickness: var(--border-thickness);
   color: var(--accent-color);
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 a:hover {
-  color: var(--text-color);
+  color: var(--background-color);
   background: var(--accent-color);
   text-decoration: none;
 }
@@ -143,7 +225,7 @@ a:visited {
 
 a:visited:hover {
   background: var(--accent-color-alt);
-  color: var(--text-color);
+  color: var(--background-color);
 }
 
 /* Paragraphs */
@@ -162,7 +244,9 @@ em {
   font-style: italic;
 }
 
-/* Code */
+/* ═══════════════════════════════════════════════════════════════════════════
+   CODE BLOCKS
+   ═══════════════════════════════════════════════════════════════════════════ */
 pre, code {
   font-family: var(--font-family);
 }
@@ -171,6 +255,7 @@ code {
   font-weight: var(--font-weight-medium);
   background: var(--background-color-alt);
   padding: 0 0.5ch;
+  transition: background-color 0.3s ease;
 }
 
 pre {
@@ -181,9 +266,22 @@ pre {
   padding: var(--line-height) 2ch;
   background: var(--background-color-alt);
   border: var(--border-thickness) solid var(--text-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Lists */
+/* Light mode code blocks get a nice paper feel */
+[data-theme="light"] pre {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode code blocks get subtle glow */
+[data-theme="dark"] pre {
+  box-shadow: inset 0 0 30px rgba(0, 255, 136, 0.02);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LISTS
+   ═══════════════════════════════════════════════════════════════════════════ */
 ul, ol {
   padding: 0;
   margin: 0 0 var(--line-height);
@@ -204,7 +302,9 @@ li {
   padding: 0;
 }
 
-/* Tables */
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABLES
+   ═══════════════════════════════════════════════════════════════════════════ */
 table {
   position: relative;
   width: 100%;
@@ -218,14 +318,18 @@ th, td {
   line-height: var(--line-height);
   vertical-align: top;
   text-align: left;
+  transition: border-color 0.3s ease;
 }
 
 th {
   font-weight: var(--font-weight-bold);
   background: var(--background-color-alt);
+  transition: background-color 0.3s ease;
 }
 
-/* Form elements */
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORM ELEMENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
 input, button, textarea, select {
   border: var(--border-thickness) solid var(--text-color);
   padding: calc(var(--line-height) / 2 - var(--border-thickness)) calc(1ch - var(--border-thickness));
@@ -241,6 +345,7 @@ input, button, textarea, select {
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 textarea {
@@ -292,7 +397,9 @@ label {
   font-size: 0.875rem;
 }
 
-/* Images */
+/* ═══════════════════════════════════════════════════════════════════════════
+   IMAGES
+   ═══════════════════════════════════════════════════════════════════════════ */
 img, video {
   display: block;
   width: 100%;
@@ -305,7 +412,9 @@ img {
   color: var(--text-color-alt);
 }
 
-/* Scrollbar */
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   height: var(--line-height);
   width: 8px;
@@ -317,13 +426,16 @@ img {
 
 ::-webkit-scrollbar-thumb {
   background: var(--text-color-alt);
+  transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-color);
 }
 
-/* Utility classes for monospace grid */
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════════════ */
 .mono-grid {
   display: grid;
   gap: var(--line-height) 2ch;
@@ -331,17 +443,20 @@ img {
 
 .mono-border {
   border: var(--border-thickness) solid var(--text-color);
+  transition: border-color 0.3s ease;
 }
 
 .mono-box {
   border: var(--border-thickness) solid var(--text-color);
   padding: var(--line-height) 2ch;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .mono-section {
   margin: calc(var(--line-height) * 2) 0;
   padding: calc(var(--line-height) * 2) 0;
   border-top: calc(var(--border-thickness) * 3) double var(--text-color);
+  transition: border-color 0.3s ease;
 }
 
 /* ASCII-style decorators */
@@ -349,6 +464,7 @@ img {
   position: relative;
   padding: var(--line-height) 2ch;
   border: var(--border-thickness) solid var(--text-color);
+  transition: border-color 0.3s ease;
 }
 
 .ascii-box::before {
@@ -385,6 +501,7 @@ img {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  transition: border-color 0.3s ease;
 }
 
 .mono-tag-accent {
@@ -404,8 +521,180 @@ img {
   outline-offset: 2px;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   THEME TOGGLE SPECIFIC STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: var(--border-thickness) solid var(--text-color);
+  background: var(--background-color-alt);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-color);
+  box-shadow: var(--glow-primary);
+}
+
+.theme-toggle-icon {
+  position: absolute;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Light mode specific styles */
+[data-theme="light"] .theme-toggle {
+  background: var(--background-color);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+  background: var(--accent-color);
+  color: var(--background-color);
+}
+
+/* Card hover effects per theme */
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.1), 0 0 60px rgba(0, 255, 136, 0.05);
+}
+
+[data-theme="light"] .project-card:hover {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Smooth transitions for all elements */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Exclude animations from theme transitions */
+.animate-pulse,
+[class*="animate-"] {
+  transition: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BLOG - CODE SYNTAX HIGHLIGHTING (Cyberpunk Theme)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.blog-content pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  background: transparent;
+}
+
+/* Highlight.js - Custom Cyberpunk Theme */
+.hljs {
+  color: var(--text-color);
+  background: transparent;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--text-color-alt);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: var(--accent-purple);
+}
+
+.hljs-string,
+.hljs-template-variable,
+.hljs-addition {
+  color: var(--accent-color);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-tag {
+  color: var(--accent-cyan);
+}
+
+.hljs-function,
+.hljs-title {
+  color: var(--accent-yellow);
+}
+
+.hljs-attr,
+.hljs-attribute {
+  color: var(--accent-cyan);
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: var(--accent-color-alt);
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: var(--accent-purple);
+}
+
+.hljs-params {
+  color: var(--text-color);
+}
+
+.hljs-meta {
+  color: var(--text-color-alt);
+}
+
+.hljs-deletion {
+  color: var(--accent-color-alt);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.hljs-addition {
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* Line numbers for code blocks */
+.blog-content pre {
+  position: relative;
+  counter-reset: line;
+}
+
+/* Blog specific tweaks */
+.blog-content a:visited {
+  color: var(--accent-color);
+}
+
+.blog-content a:visited:hover {
+  background: var(--accent-color);
+  color: var(--background-color);
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

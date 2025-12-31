@@ -70,7 +70,7 @@ const Projects = () => {
         <pre className="text-sm">
 {`┌─────────────────────────────────────────────────────────────┐
 │ ls -la ~/projects                                           │
-│ total ${projectsData.length} projects                                           │
+│ total ${projectsData.length} projects                                            │
 └─────────────────────────────────────────────────────────────┘`}
         </pre>
       </div>
